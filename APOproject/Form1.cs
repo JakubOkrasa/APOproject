@@ -10,11 +10,24 @@ using System.Windows.Forms;
 
 namespace APOproject
 {
-    public partial class Form1 : Form
+    public partial class APOgui : Form
     {
-        public Form1()
+        public APOgui()
         {
             InitializeComponent();
         }
+
+        public void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                mainPicture.Image = new Bitmap(ofd.FileName);
+            }
+        }
+
+       
     }
 }

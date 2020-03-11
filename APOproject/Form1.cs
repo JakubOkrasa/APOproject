@@ -17,17 +17,25 @@ namespace APOproject
             InitializeComponent();
         }
 
+        public static OpenFileDialog openFileDialog;
+
         public void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
 
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                mainPicture.Image = new Bitmap(ofd.FileName);
+                mainPicture.Image = new Bitmap(openFileDialog.FileName);
             }
         }
 
-       
+        private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HistogramForm hf = new HistogramForm();
+            hf.ShowDialog();
+        }
+
+        
     }
 }

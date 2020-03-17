@@ -60,6 +60,16 @@ namespace APOproject
 
         }
 
-        
+        private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveImage = new SaveFileDialog();
+            saveImage.DefaultExt = "png";
+            saveImage.Filter = "png files (*.png)|*.png|jpg files (*.jpg)|*.jpg|bmp files (*.bmp)|*.bmp|All files (*.*)|*.*";
+            if (saveImage.ShowDialog() == DialogResult.OK)
+            {
+                // System.IO.Path.GetExtension(saveBwHistDialog.FileName)
+                mainPicture.Image.Save(saveImage.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+        }
     }
 }

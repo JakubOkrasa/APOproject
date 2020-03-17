@@ -15,12 +15,14 @@ namespace APOproject
     {
         MainForm mainForm;
         HistogramCreator histogramCreator;
+        Commands.StretchHistogramCommand stretchHistogramCommand;
 
         public HistogramForm(MainForm mainForm)
         {
             
             InitializeComponent();
             histogramCreator = new HistogramCreator(mainForm);
+            stretchHistogramCommand = new Commands.StretchHistogramCommand(histogramCreator, mainForm);
             blackWhiteHistogram.Visible = true;
             redHistogram.Visible = false;
             greenHistogram.Visible = false;
@@ -90,7 +92,8 @@ namespace APOproject
 
         private void btnStretchHistogram_Click(object sender, EventArgs e)
         {
-            histogramCreator.stretchHistogram();
+            //histogramCreator.stretchHistogram();
+            stretchHistogramCommand.execute();
             if(rbBlackWhiteHist.Checked)
             {
                 showBlackWhiteHistogram();

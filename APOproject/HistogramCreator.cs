@@ -10,7 +10,7 @@ namespace APOproject
     public class HistogramCreator
     {
         MainForm mainForm;
-        private Bitmap Bitmap { get; set; }
+        public Bitmap Bitmap { get; set; }
 
         public HistogramCreator(MainForm mainForm)
         {
@@ -34,7 +34,7 @@ namespace APOproject
         
 
         //populate black-white histogram LUT and RGB histogram LUT with data from bitmap
-        private void populateLUTs(Bitmap bitmap)
+        public void populateLUTs(Bitmap bitmap)
         {
             int[,] rgbLUT = new int[BRIGHTNESS_LEVELS_NUMBER, 3]; //3 kolory - RGB
             int[] blackWhiteLUT = new int[BRIGHTNESS_LEVELS_NUMBER];
@@ -56,31 +56,7 @@ namespace APOproject
         }
 
 
-        public void stretchHistogram()
-        {
-            BoundaryValues boundaryValues = new BoundaryValues(Bitmap); //gets min and max values from 3 channels (RGB)
-            int redNewValue;
-            int greenNewValue;
-            int blueNewValue;
-            Color oldColor;
-
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                for (int j = 0; j < bitmapHeight; j++)
-                {               
-                    oldColor = Bitmap.GetPixel(i, j);
-                             
-                    redNewValue =   (oldColor.R - boundaryValues.MinR) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxR - boundaryValues.MinR));
-                    greenNewValue = (oldColor.G - boundaryValues.MinG) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxG - boundaryValues.MinG));
-                    blueNewValue =  (oldColor.B - boundaryValues.MinB) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxB - boundaryValues.MinB));
-
-                    Bitmap.SetPixel(i, j, Color.FromArgb(redNewValue, greenNewValue, blueNewValue));
-                }
-            }
-            populateLUTs(Bitmap);
-            mainForm.MainPictureImage = Bitmap;
-        }
-
+        
         
 
     }

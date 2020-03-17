@@ -10,12 +10,21 @@ using System.Windows.Forms;
 
 namespace APOproject
 {
-    public partial class APOgui : Form
+    public partial class MainForm : Form
     {
-        public APOgui()
+
+        public MainForm()
         {
             InitializeComponent();
         }
+
+        public Image MainPictureImage
+        {
+           get { return mainPicture.Image; }
+           set { mainPicture.Image = value; }
+        }
+
+
 
         public static OpenFileDialog openFileDialog;
 
@@ -29,11 +38,26 @@ namespace APOproject
                 mainPicture.Image = new Bitmap(openFileDialog.FileName);
             }
         }
+        //private void InitHistogramForm()
+        //{
+        //    HistogramForm hf = new HistogramForm(this, histogramCreator);
+        //    hf.ShowDialog();
+
+        //}
+
+        
+
+        
 
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HistogramForm hf = new HistogramForm();
+            HistogramForm hf = new HistogramForm(this);
             hf.ShowDialog();
+            //using (WaitingForm wf = new WaitingForm(InitHistogramForm))
+            //{
+            //    wf.ShowDialog(this);
+            //}
+
         }
 
         

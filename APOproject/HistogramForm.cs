@@ -9,39 +9,99 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace APOproject
-{
+{ //TODO: rozdzielić logikę od widoku
+    // ładowanie tablic LUT do pamięci podr. np. po wciśnięciu opcji Histogram. Wykorzystanie rgbLUT przy tworzeniu blackWhiteLUT
     public partial class HistogramForm : Form
     {
-        const double RED_MULTIPLIER = 0.2126;
-        const double GREEN_MULTIPLIER = 0.7152;
-        const double BLUE_MULTIPLIER = 0.0722;
+        MainForm mainForm;
+        HistogramCreator histogramCreator;
 
-        public HistogramForm()
+        public HistogramForm(MainForm mainForm)
         {
+            
             InitializeComponent();
-            getLUT();
+            histogramCreator = new HistogramCreator(mainForm);
+            blackWhiteHistogram.Visible = true;
+            redHistogram.Visible = false;
+            greenHistogram.Visible = false;
+            blueHistogram.Visible = false;
+            showBlackWhiteHistogram();
+
+            this.mainForm = mainForm as MainForm;
+           // this.histogramCreator = histogramCreator as HistogramCreator;
         }
 
-        private int[] getLUT()
+        private void showBlackWhiteHistogram()
         {
-            int[] blackWhiteLUT = new int[256]; // 256 poziomów jasności
-            string imagePath = APOgui.openFileDialog.FileName;
-            Bitmap bitmap = new Bitmap(imagePath);
-            GraphicsUnit unit = GraphicsUnit.Pixel;
-            int imageWidth = (int)bitmap.GetBounds(ref unit).Width;
-            int imageHeight = (int)bitmap.GetBounds(ref unit).Height;
-            for (int i=0; i<imageWidth; i++)
+            int[] blackWhiteLUT = histogramCreator.BlackWhiteLUT;
+            for (int i = 0; i < 256; i++)
             {
-                for (int j = 0; j<imageHeight; j++)
-                {
-                    Color pixel = bitmap.GetPixel(i, 0);
-                    int brightness = (int)Math.Round(pixel.R * RED_MULTIPLIER + pixel.G * GREEN_MULTIPLIER + pixel.B * BLUE_MULTIPLIER, 0);
-                    blackWhiteLUT[brightness]++;
-                }              
-            
+                blackWhiteHistogram.Series["Brightness"].Points.AddXY(i, blackWhiteLUT[i]);
+            }
+        }
+
+        private void showRgbHistogram()
+        {
+            int[,] rgbLUT = histogramCreator.RgbLUT;
+            for (int i = 0; i < 256; i++)
+            {
+                redHistogram.Series["Red"].Points.AddXY(i, rgbLUT[i, 0]);
+                greenHistogram.Series["Green"].Points.AddXY(i, rgbLUT[i, 1]);
+                blueHistogram.Series["Blue"].Points.AddXY(i, rgbLUT[i, 2]);
+            }
+        }
+        
+
+        private void rbBlackWhiteHist_CheckedChanged(object sender, EventArgs e)
+        {
+            redHistogram.Visible = false;
+            greenHistogram.Visible = false;
+            blueHistogram.Visible = false;
+            blackWhiteHistogram.Visible = true;
+            showBlackWhiteHistogram();
+
+            btnSaveHistogram.Visible = true;
+        }
+
+        private void rbRGBhist_CheckedChanged(object sender, EventArgs e)
+        {
+            blackWhiteHistogram.Visible = false;
+            redHistogram.Visible = true;
+            greenHistogram.Visible = true;
+            blueHistogram.Visible = true;
+            showRgbHistogram();
+
+            btnSaveHistogram.Visible = false;
+        }
+
+        private void btnSaveHistogram_Click(object sender, EventArgs e)
+        {
+            saveBwHistDialog = new SaveFileDialog();
+            saveBwHistDialog.DefaultExt = "png";
+            saveBwHistDialog.Filter = "png files (*.png)|*.png|jpg files (*.jpg)|*.jpg|bmp files (*.bmp)|*.bmp|All files (*.*)|*.*";
+            if (saveBwHistDialog.ShowDialog() == DialogResult.OK)
+            {
+                // System.IO.Path.GetExtension(saveBwHistDialog.FileName)
+                blackWhiteHistogram.SaveImage(saveBwHistDialog.FileName, System.Drawing.Imaging.ImageFormat.Png); //(todo) inne formaty tez dzialaja, ale nie powinny
             }
 
-            return blackWhiteLUT;
+
+        }
+
+        private void btnStretchHistogram_Click(object sender, EventArgs e)
+        {
+            histogramCreator.stretchHistogram();
+            if(rbBlackWhiteHist.Checked)
+            {
+                showBlackWhiteHistogram();
+            }
+            else
+            {
+                showRgbHistogram();
+            }
+            //this.mainForm.MainPictureImage
+            
+            /// refresh image
         }
     }
 }

@@ -34,6 +34,8 @@ namespace APOproject
 
         
 
+
+
         //populate black-white histogram LUT and RGB histogram LUT with data from bitmap
         public void populateLUTs(Bitmap bitmap)
         {

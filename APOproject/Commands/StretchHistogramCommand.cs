@@ -12,21 +12,21 @@ namespace APOproject.Commands
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
         public Bitmap Bitmap { get; set; }
-        HistogramCreator histogramCreator; //constructor needed
-        MainForm mainForm; //constructor needed
+        HistogramCreator histogramCreator;
+        private ImageForm imageForm;
 
-        public StretchHistogramCommand(HistogramCreator histogramCreator, MainForm mainForm)
+        public StretchHistogramCommand(HistogramCreator histogramCreator, ImageForm imageForm)
         {
             this.histogramCreator = histogramCreator;
-            Bitmap = histogramCreator.Bitmap;
-            this.mainForm = mainForm;
+            this.imageForm = imageForm;
+            Bitmap = imageForm.PictureBox.Image as Bitmap;            
         }
 
         public void execute()
         {
             modifyBitmapToStretchHistogram(Bitmap);
             histogramCreator.populateLUTs(Bitmap);
-            mainForm.MainPictureImage = Bitmap;
+            imageForm.PictureBox.Image = Bitmap;
         }
 
         public void undo()

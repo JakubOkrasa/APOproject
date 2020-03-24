@@ -9,14 +9,15 @@ namespace APOproject
 {
     public class HistogramCreator
     {
-        MainForm mainForm;
-        public Bitmap Bitmap { get; set; }
+        ImageForm imageForm;
+       // public Bitmap Bitmap { get; set; }
 
-        public HistogramCreator(MainForm mainForm)
+        public HistogramCreator(ImageForm imageForm)
         {
-            Bitmap = new Bitmap(mainForm.MainPictureImage);
-            this.mainForm = mainForm as MainForm;
-            populateLUTs(Bitmap);
+            // Bitmap = new Bitmap(imageForm.pictureBox);
+            // this.mainForm = mainForm as MainForm;
+            this.imageForm = imageForm;
+            populateLUTs(imageForm.PictureBox.Image as Bitmap);
         }
 
         const double RED_MULTIPLIER = 0.2126;
@@ -38,13 +39,13 @@ namespace APOproject
         {
             int[,] rgbLUT = new int[BRIGHTNESS_LEVELS_NUMBER, 3]; //3 kolory - RGB
             int[] blackWhiteLUT = new int[BRIGHTNESS_LEVELS_NUMBER];
-            bitmapWidth = (int)Bitmap.GetBounds(ref imageSizeUnit).Width;
-            bitmapHeight = (int)Bitmap.GetBounds(ref imageSizeUnit).Height;
+            bitmapWidth = (int)bitmap.GetBounds(ref imageSizeUnit).Width;
+            bitmapHeight = (int)bitmap.GetBounds(ref imageSizeUnit).Height;
             for (int i = 0; i < bitmapWidth; i++)
             {
                 for (int j = 0; j < bitmapHeight; j++)
                 {
-                    Color pixel = Bitmap.GetPixel(i, j);
+                    Color pixel = bitmap.GetPixel(i, j);
                     rgbLUT[pixel.R, 0]++;
                     rgbLUT[pixel.G, 1]++;
                     rgbLUT[pixel.B, 2]++;

@@ -7,29 +7,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using APOproject.Commands;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace APOproject
 { //TODO: rozdzielić logikę od widoku
     // ładowanie tablic LUT do pamięci podr. np. po wciśnięciu opcji Histogram. Wykorzystanie rgbLUT przy tworzeniu blackWhiteLUT
     public partial class HistogramForm : Form
     {
-        MainForm mainForm;
+        ImageForm imageForm;
         HistogramCreator histogramCreator;
-        Commands.StretchHistogramCommand stretchHistogramCommand;
+        StretchHistogramCommand stretchHistogramCommand;
+        FlattenHistogramCommand flattenHistogramCommand;
 
-        public HistogramForm(MainForm mainForm)
+        public Chart RedHistogram {
+            get { return redHistogram; }
+            set { redHistogram = value; }
+        }
+
+        public Chart GreenHistogram
+        {
+            get { return greenHistogram; }
+            set { greenHistogram = value; }
+        }
+
+        public Chart BlueHistogram
+        {
+            get { return blueHistogram; }
+            set { blueHistogram = value; }
+        }
+
+
+        public HistogramForm(ImageForm imageForm)
         {
             
             InitializeComponent();
-            histogramCreator = new HistogramCreator(mainForm);
-            stretchHistogramCommand = new Commands.StretchHistogramCommand(histogramCreator, mainForm);
+            this.imageForm = imageForm;
+            histogramCreator = new HistogramCreator(imageForm);
+            stretchHistogramCommand = new StretchHistogramCommand(histogramCreator, imageForm);
+            flattenHistogramCommand = new FlattenHistogramCommand(histogramCreator, imageForm, this);
             blackWhiteHistogram.Visible = true;
             redHistogram.Visible = false;
             greenHistogram.Visible = false;
             blueHistogram.Visible = false;
             showBlackWhiteHistogram();
 
-            this.mainForm = mainForm as MainForm;
+            
            // this.histogramCreator = histogramCreator as HistogramCreator;
         }
 
@@ -47,7 +70,7 @@ namespace APOproject
             int[,] rgbLUT = histogramCreator.RgbLUT;
             for (int i = 0; i < 256; i++)
             {
-                redHistogram.Series["Red"].Points.AddXY(i, rgbLUT[i, 0]);
+                RedHistogram.Series["Red"].Points.AddXY(i, rgbLUT[i, 0]);
                 greenHistogram.Series["Green"].Points.AddXY(i, rgbLUT[i, 1]);
                 blueHistogram.Series["Blue"].Points.AddXY(i, rgbLUT[i, 2]);
             }
@@ -105,6 +128,12 @@ namespace APOproject
             //this.mainForm.MainPictureImage
             
             /// refresh image
+        }
+
+        private void btnEqHistogram_Click(object sender, EventArgs e)
+        {
+            flattenHistogramCommand.execute();
+
         }
     }
 }

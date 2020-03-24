@@ -48,8 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoundaryValues.cs" />
+    <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />
+    <Compile Include="ImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageForm.Designer.cs">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProcessingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ImageForm.resx">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProcessingForm.resx">
       <DependentUpon>ProcessingForm.cs</DependentUpon>
     </EmbeddedResource>

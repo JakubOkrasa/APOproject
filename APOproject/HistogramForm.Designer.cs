@@ -50,6 +50,7 @@
             this.greenHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.saveBwHistDialog = new System.Windows.Forms.SaveFileDialog();
             this.btnStretchHistogram = new System.Windows.Forms.Button();
+            this.btnEqHistogram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.blackWhiteHistogram)).BeginInit();
             this.gbHistogramTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.redHistogram)).BeginInit();
@@ -93,10 +94,10 @@
             this.rbBlackWhiteHist.Checked = true;
             this.rbBlackWhiteHist.Location = new System.Drawing.Point(0, 34);
             this.rbBlackWhiteHist.Name = "rbBlackWhiteHist";
-            this.rbBlackWhiteHist.Size = new System.Drawing.Size(163, 17);
+            this.rbBlackWhiteHist.Size = new System.Drawing.Size(125, 17);
             this.rbBlackWhiteHist.TabIndex = 2;
             this.rbBlackWhiteHist.TabStop = true;
-            this.rbBlackWhiteHist.Text = "Histogram poziomów szarości";
+            this.rbBlackWhiteHist.Text = "Grey levels histogram";
             this.rbBlackWhiteHist.UseVisualStyleBackColor = true;
             this.rbBlackWhiteHist.CheckedChanged += new System.EventHandler(this.rbBlackWhiteHist_CheckedChanged);
             // 
@@ -105,9 +106,9 @@
             this.rbRGBhist.AutoSize = true;
             this.rbRGBhist.Location = new System.Drawing.Point(0, 57);
             this.rbRGBhist.Name = "rbRGBhist";
-            this.rbRGBhist.Size = new System.Drawing.Size(174, 17);
+            this.rbRGBhist.Size = new System.Drawing.Size(101, 17);
             this.rbRGBhist.TabIndex = 3;
-            this.rbRGBhist.Text = "Histogram dla kanałów R, G i B";
+            this.rbRGBhist.Text = "RGB histograms";
             this.rbRGBhist.UseVisualStyleBackColor = true;
             this.rbRGBhist.CheckedChanged += new System.EventHandler(this.rbRGBhist_CheckedChanged);
             // 
@@ -187,15 +188,26 @@
             this.btnStretchHistogram.Name = "btnStretchHistogram";
             this.btnStretchHistogram.Size = new System.Drawing.Size(141, 23);
             this.btnStretchHistogram.TabIndex = 8;
-            this.btnStretchHistogram.Text = "Rozciąganie histogramu";
+            this.btnStretchHistogram.Text = "Stretch histogram";
             this.btnStretchHistogram.UseVisualStyleBackColor = true;
             this.btnStretchHistogram.Click += new System.EventHandler(this.btnStretchHistogram_Click);
+            // 
+            // btnEqHistogram
+            // 
+            this.btnEqHistogram.Location = new System.Drawing.Point(607, 260);
+            this.btnEqHistogram.Name = "btnEqHistogram";
+            this.btnEqHistogram.Size = new System.Drawing.Size(141, 23);
+            this.btnEqHistogram.TabIndex = 9;
+            this.btnEqHistogram.Text = "flatten histogram";
+            this.btnEqHistogram.UseVisualStyleBackColor = true;
+            this.btnEqHistogram.Click += new System.EventHandler(this.btnEqHistogram_Click);
             // 
             // HistogramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 607);
+            this.Controls.Add(this.btnEqHistogram);
             this.Controls.Add(this.btnStretchHistogram);
             this.Controls.Add(this.greenHistogram);
             this.Controls.Add(this.blueHistogram);
@@ -227,5 +239,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart greenHistogram;
         private System.Windows.Forms.SaveFileDialog saveBwHistDialog;
         private System.Windows.Forms.Button btnStretchHistogram;
+        private System.Windows.Forms.Button btnEqHistogram;
     }
 }

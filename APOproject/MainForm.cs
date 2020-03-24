@@ -12,64 +12,83 @@ namespace APOproject
 {
     public partial class MainForm : Form
     {
+        public static OpenFileDialog openFileDialog;
+        List<ImageForm> imageForms = new List<ImageForm>();
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        public Image MainPictureImage
+        public void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           get { return mainPicture.Image; }
-           set { mainPicture.Image = value; }
+            openImage();
         }
 
-
-
-        public static OpenFileDialog openFileDialog;
-
-        public void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openImage()
         {
             openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                mainPicture.Image = new Bitmap(openFileDialog.FileName);
+                ImageForm imageForm = new ImageForm(this, new Bitmap(openFileDialog.FileName));
+                imageForms.Add(imageForm);
+                imageForm.Show();
+                imageForm.Activate();
             }
         }
-        //private void InitHistogramForm()
-        //{
-        //    HistogramForm hf = new HistogramForm(this, histogramCreator);
-        //    hf.ShowDialog();
-
-        //}
-
-        
-
         
 
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HistogramForm hf = new HistogramForm(this);
+            HistogramForm hf = new HistogramForm(ActiveMdiChild as ImageForm);
             hf.ShowDialog();
-            //using (WaitingForm wf = new WaitingForm(InitHistogramForm))
-            //{
-            //    wf.ShowDialog(this);
-            //}
-
         }
 
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            saveImage();
+        }
+
+        private void saveImage()
+        {
             SaveFileDialog saveImage = new SaveFileDialog();
             saveImage.DefaultExt = "png";
             saveImage.Filter = "png files (*.png)|*.png|jpg files (*.jpg)|*.jpg|bmp files (*.bmp)|*.bmp|All files (*.*)|*.*";
+
+
             if (saveImage.ShowDialog() == DialogResult.OK)
             {
-                // System.IO.Path.GetExtension(saveBwHistDialog.FileName)
-                mainPicture.Image.Save(saveImage.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                (ActiveMdiChild as ImageForm).PictureBox.Image.Save(saveImage.FileName, System.Drawing.Imaging.ImageFormat.Png); //other formats also works despite the second parameter
+
             }
+        }
+
+        private void mainPicture_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.IsMdiContainer = true;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.O))
+            {
+                openImage();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                saveImage();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

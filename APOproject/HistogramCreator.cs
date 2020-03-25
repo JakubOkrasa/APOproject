@@ -10,12 +10,9 @@ namespace APOproject
     public class HistogramCreator
     {
         ImageForm imageForm;
-       // public Bitmap Bitmap { get; set; }
 
         public HistogramCreator(ImageForm imageForm)
         {
-            // Bitmap = new Bitmap(imageForm.pictureBox);
-            // this.mainForm = mainForm as MainForm;
             this.imageForm = imageForm;
             populateLUTs(imageForm.PictureBox.Image as Bitmap);
         }

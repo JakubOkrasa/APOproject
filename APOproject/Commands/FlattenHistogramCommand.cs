@@ -34,16 +34,16 @@ namespace APOproject.Commands
             
             histogramCreator.RgbLUT = getDistributionFunction(histogramCreator.RgbLUT);
             histogramCreator.RgbLUT = getEqualizedLUT(histogramCreator.RgbLUT);
-            //temporary copied code:
-            histogramForm.RedHistogram.Series["Red"].Points.Clear();
-            histogramForm.GreenHistogram.Series["Green"].Points.Clear();
-            histogramForm.BlueHistogram.Series["Blue"].Points.Clear();
-            for (int i = 0; i < 256; i++)
-            {
-                histogramForm.RedHistogram.Series["Red"].Points.AddXY(i, histogramCreator.RgbLUT[i, 0]);
-                histogramForm.GreenHistogram.Series["Green"].Points.AddXY(i, histogramCreator.RgbLUT[i, 1]);
-                histogramForm.BlueHistogram.Series["Blue"].Points.AddXY(i, histogramCreator.RgbLUT[i, 2]);
-            }
+            //temporary copied code: COMMENTED ONLY TO TEST MANUAL DRAWING
+            //histogramForm.RedHistogram.Series["Red"].Points.Clear();
+            //histogramForm.GreenHistogram.Series["Green"].Points.Clear();
+            //histogramForm.BlueHistogram.Series["Blue"].Points.Clear();
+            //for (int i = 0; i < 256; i++)
+            //{
+            //    histogramForm.RedHistogram.Series["Red"].Points.AddXY(i, histogramCreator.RgbLUT[i, 0]);
+            //    histogramForm.GreenHistogram.Series["Green"].Points.AddXY(i, histogramCreator.RgbLUT[i, 1]);
+            //    histogramForm.BlueHistogram.Series["Blue"].Points.AddXY(i, histogramCreator.RgbLUT[i, 2]);
+            //}
             //temporary copied code end
         }
 

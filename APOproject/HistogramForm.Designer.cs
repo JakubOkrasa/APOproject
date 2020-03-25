@@ -38,12 +38,12 @@
             this.pctMonoHist = new System.Windows.Forms.PictureBox();
             this.pctGreenHist = new System.Windows.Forms.PictureBox();
             this.pctBlueHist = new System.Windows.Forms.PictureBox();
-            this.pctRetHist = new System.Windows.Forms.PictureBox();
+            this.pctRedHist = new System.Windows.Forms.PictureBox();
             this.gbHistogramTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctMonoHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctGreenHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBlueHist)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctRetHist)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSaveHistogram
@@ -135,20 +135,20 @@
             this.pctBlueHist.TabIndex = 12;
             this.pctBlueHist.TabStop = false;
             // 
-            // pctRetHist
+            // pctRedHist
             // 
-            this.pctRetHist.Location = new System.Drawing.Point(37, 31);
-            this.pctRetHist.Name = "pctRetHist";
-            this.pctRetHist.Size = new System.Drawing.Size(479, 161);
-            this.pctRetHist.TabIndex = 13;
-            this.pctRetHist.TabStop = false;
+            this.pctRedHist.Location = new System.Drawing.Point(37, 31);
+            this.pctRedHist.Name = "pctRedHist";
+            this.pctRedHist.Size = new System.Drawing.Size(479, 161);
+            this.pctRedHist.TabIndex = 13;
+            this.pctRedHist.TabStop = false;
             // 
             // HistogramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 607);
-            this.Controls.Add(this.pctRetHist);
+            this.Controls.Add(this.pctRedHist);
             this.Controls.Add(this.pctBlueHist);
             this.Controls.Add(this.pctGreenHist);
             this.Controls.Add(this.pctMonoHist);
@@ -158,12 +158,13 @@
             this.Controls.Add(this.btnSaveHistogram);
             this.Name = "HistogramForm";
             this.Text = "Histogram";
+            this.Shown += new System.EventHandler(this.HistogramForm_Shown);
             this.gbHistogramTypes.ResumeLayout(false);
             this.gbHistogramTypes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctMonoHist)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctGreenHist)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBlueHist)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctRetHist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -179,6 +180,6 @@
         private System.Windows.Forms.PictureBox pctMonoHist;
         private System.Windows.Forms.PictureBox pctGreenHist;
         private System.Windows.Forms.PictureBox pctBlueHist;
-        private System.Windows.Forms.PictureBox pctRetHist;
+        private System.Windows.Forms.PictureBox pctRedHist;
     }
 }

@@ -8,22 +8,22 @@ namespace APOproject.Commands
 {
     class FlattenHistogramCommand : ICommand
     {
-        HistogramCreator histogramCreator;
-        ImageForm imageForm;
+        private LookUpTable lookUpTable;
+        private ImageForm imageForm;
         HistogramForm histogramForm;
 
         public int[] FirstNonZeroValues { get; set; }
         public int PixelsNumber { get; set; }
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
-        public FlattenHistogramCommand(HistogramCreator histogramCreator, ImageForm imageForm, HistogramForm histogramForm)
+        public FlattenHistogramCommand(LookUpTable lookUpTable, ImageForm imageForm, HistogramForm histogramForm)
         {
-            this.histogramCreator = histogramCreator;
+            this.lookUpTable = lookUpTable;
             this.imageForm = imageForm;
             this.histogramForm = histogramForm;
             FirstNonZeroValues = new int[3];
 
-            foreach (int value in histogramCreator.BlackWhiteLUT)
+            foreach (int value in lookUpTable.MonoLUT)
             {
                 PixelsNumber += value;
             }
@@ -32,8 +32,8 @@ namespace APOproject.Commands
         public void execute()
         {
             
-            histogramCreator.RgbLUT = getDistributionFunction(histogramCreator.RgbLUT);
-            histogramCreator.RgbLUT = getEqualizedLUT(histogramCreator.RgbLUT);
+            lookUpTable.RgbLUT = getDistributionFunction(lookUpTable.RgbLUT);
+            lookUpTable.RgbLUT = getEqualizedLUT(lookUpTable.RgbLUT);
             //temporary copied code: COMMENTED ONLY TO TEST MANUAL DRAWING
             //histogramForm.RedHistogram.Series["Red"].Points.Clear();
             //histogramForm.GreenHistogram.Series["Green"].Points.Clear();

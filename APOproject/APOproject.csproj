@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoundaryValues.cs" />
+    <Compile Include="LookUpTable.cs" />
     <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />
@@ -70,7 +70,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="HistogramCreator.cs" />
     <Compile Include="HistogramForm.cs">
       <SubType>Form</SubType>
     </Compile>

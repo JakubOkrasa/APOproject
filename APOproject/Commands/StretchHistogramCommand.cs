@@ -12,20 +12,20 @@ namespace APOproject.Commands
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
         public Bitmap Bitmap { get; set; }
-        HistogramCreator histogramCreator;
+        private LookUpTable lookUpTable;
         private ImageForm imageForm;
 
-        public StretchHistogramCommand(HistogramCreator histogramCreator, ImageForm imageForm)
+        public StretchHistogramCommand(LookUpTable lookUpTable, ImageForm imageForm)
         {
-            this.histogramCreator = histogramCreator;
+            this.lookUpTable = lookUpTable;
             this.imageForm = imageForm;
             Bitmap = imageForm.PictureBox.Image as Bitmap;            
         }
 
         public void execute()
         {
-            modifyBitmapToStretchHistogram(Bitmap);
-            histogramCreator.populateLUTs(Bitmap);
+            modifyBitmapToStretchHistogram();
+            lookUpTable.populateLUTs(Bitmap);
             imageForm.PictureBox.Image = Bitmap;
         }
 
@@ -35,23 +35,23 @@ namespace APOproject.Commands
         }
 
 
-        private void modifyBitmapToStretchHistogram(Bitmap bitmap)
+        private void modifyBitmapToStretchHistogram()
         {
-            BoundaryValues boundaryValues = new BoundaryValues(Bitmap); //gets min and max values from 3 channels (RGB)
+            LookUpTable lookUpTable = new LookUpTable(imageForm); //gets min and max values from 3 channels (RGB)
             int redNewValue;
             int greenNewValue;
             int blueNewValue;
             Color oldColor;
 
-            for (int i = 0; i < boundaryValues.BitmapWidth; i++)
+            for (int i = 0; i < lookUpTable.BitmapWidth; i++)
             {
-                for (int j = 0; j < boundaryValues.BitmapHeight; j++)
+                for (int j = 0; j < lookUpTable.BitmapHeight; j++)
                 {
                     oldColor = Bitmap.GetPixel(i, j);
 
-                    redNewValue = (oldColor.R - boundaryValues.MinR) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxR - boundaryValues.MinR));
-                    greenNewValue = (oldColor.G - boundaryValues.MinG) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxG - boundaryValues.MinG));
-                    blueNewValue = (oldColor.B - boundaryValues.MinB) * (BRIGHTNESS_LEVELS_NUMBER / (boundaryValues.MaxB - boundaryValues.MinB));
+                    redNewValue = (oldColor.R - lookUpTable.MinR) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxR - lookUpTable.MinR));
+                    greenNewValue = (oldColor.G - lookUpTable.MinG) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxG - lookUpTable.MinG));
+                    blueNewValue = (oldColor.B - lookUpTable.MinB) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxB - lookUpTable.MinB));
 
                     Bitmap.SetPixel(i, j, Color.FromArgb(redNewValue, greenNewValue, blueNewValue));
                 }

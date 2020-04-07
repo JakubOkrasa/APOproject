@@ -11,31 +11,40 @@ using APOproject.Commands;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace APOproject
-{ //TODO: rozdzielić logikę od widoku
-    // ładowanie tablic LUT do pamięci podr. np. po wciśnięciu opcji Histogram. Wykorzystanie rgbLUT przy tworzeniu blackWhiteLUT
+{ 
     public partial class HistogramForm : Form
     {
         ImageForm imageForm;
-        HistogramCreator histogramCreator;
+        public List<Histogram> Histograms { get; set; }
+        public LookUpTablesSet LookUpTable { get; set; }
         StretchHistogramCommand stretchHistogramCommand;
         FlattenHistogramCommand flattenHistogramCommand;
 
-        public Chart RedHistogram {
-            get { return redHistogram; }
-            set { redHistogram = value; }
+        public PictureBox PctMonoHist
+        {
+            get { return pctMonoHist; }
+            set { pctMonoHist = value; }
         }
 
-        public Chart GreenHistogram
+        public PictureBox PctRedHist
         {
-            get { return greenHistogram; }
-            set { greenHistogram = value; }
+            get { return pctRedHist; }
+            set { pctRedHist = value; }
         }
 
-        public Chart BlueHistogram
+        public PictureBox PctGreenHist
         {
-            get { return blueHistogram; }
-            set { blueHistogram = value; }
+            get { return pctGreenHist; }
+            set { pctGreenHist = value; }
         }
+
+        public PictureBox PctBlueHist
+        {
+            get { return pctBlueHist; }
+            set { pctBlueHist = value; }
+        }
+
+
 
 
         public HistogramForm(ImageForm imageForm)
@@ -43,57 +52,63 @@ namespace APOproject
             
             InitializeComponent();
             this.imageForm = imageForm;
-            histogramCreator = new HistogramCreator(imageForm);
-            stretchHistogramCommand = new StretchHistogramCommand(histogramCreator, imageForm);
-            flattenHistogramCommand = new FlattenHistogramCommand(histogramCreator, imageForm, this);
-            blackWhiteHistogram.Visible = true;
-            redHistogram.Visible = false;
-            greenHistogram.Visible = false;
-            blueHistogram.Visible = false;
-            showBlackWhiteHistogram();
-
-            
-           // this.histogramCreator = histogramCreator as HistogramCreator;
+            //this.lookUpTable = lookUpTable;
+            this.LookUpTable = new LookUpTablesSet(imageForm);
+            Histograms = new List<Histogram>(4);
+            PctMonoHist.Visible = true;
+            PctRedHist.Visible = false;
+            PctGreenHist.Visible = false;
+            PctBlueHist.Visible = false;
+            Shown += HistogramForm_Shown;
         }
 
-        private void showBlackWhiteHistogram()
+        private void HistogramForm_Shown(object sender, EventArgs e)
         {
-            int[] blackWhiteLUT = histogramCreator.BlackWhiteLUT;
-            for (int i = 0; i < 256; i++)
-            {
-                blackWhiteHistogram.Series["Brightness"].Points.AddXY(i, blackWhiteLUT[i]);
-            }
+            Refresh();
+            showMonoHistogram();
+        }
+
+        private void showMonoHistogram()
+        {
+            Refresh();
+            Histogram monoHistogram = new Histogram(PctMonoHist, Color.DarkGray);
+            monoHistogram.DrawHistogramData(LookUpTable.MonoLUT);
+            Histograms.Add(monoHistogram);
         }
 
         private void showRgbHistogram()
         {
-            int[,] rgbLUT = histogramCreator.RgbLUT;
-            for (int i = 0; i < 256; i++)
-            {
-                RedHistogram.Series["Red"].Points.AddXY(i, rgbLUT[i, 0]);
-                greenHistogram.Series["Green"].Points.AddXY(i, rgbLUT[i, 1]);
-                blueHistogram.Series["Blue"].Points.AddXY(i, rgbLUT[i, 2]);
-            }
+            Refresh();
+            Histogram redHistogram = new Histogram(PctRedHist, Color.Crimson);
+            Histogram greenHistogram = new Histogram(PctGreenHist, Color.ForestGreen);
+            Histogram blueHistogram = new Histogram(PctBlueHist, Color.RoyalBlue);
+            redHistogram.DrawHistogramData(LookUpTable.RedLUT);
+            greenHistogram.DrawHistogramData(LookUpTable.GreenLUT);
+            blueHistogram.DrawHistogramData(LookUpTable.BlueLUT);
+
+            Histograms.Add(redHistogram);
+            Histograms.Add(greenHistogram);
+            Histograms.Add(blueHistogram);
         }
         
 
         private void rbBlackWhiteHist_CheckedChanged(object sender, EventArgs e)
         {
-            redHistogram.Visible = false;
-            greenHistogram.Visible = false;
-            blueHistogram.Visible = false;
-            blackWhiteHistogram.Visible = true;
-            showBlackWhiteHistogram();
+            PctRedHist.Visible = false;
+            PctGreenHist.Visible = false;
+            PctBlueHist.Visible = false;
+            PctMonoHist.Visible = true;
+            showMonoHistogram();
 
             btnSaveHistogram.Visible = true;
         }
 
         private void rbRGBhist_CheckedChanged(object sender, EventArgs e)
         {
-            blackWhiteHistogram.Visible = false;
-            redHistogram.Visible = true;
-            greenHistogram.Visible = true;
-            blueHistogram.Visible = true;
+            PctMonoHist.Visible = false;
+            PctRedHist.Visible = true;
+            PctGreenHist.Visible = true;
+            PctBlueHist.Visible = true;
             showRgbHistogram();
 
             btnSaveHistogram.Visible = false;
@@ -107,7 +122,7 @@ namespace APOproject
             if (saveBwHistDialog.ShowDialog() == DialogResult.OK)
             {
                 // System.IO.Path.GetExtension(saveBwHistDialog.FileName)
-                blackWhiteHistogram.SaveImage(saveBwHistDialog.FileName, System.Drawing.Imaging.ImageFormat.Png); //(todo) inne formaty tez dzialaja, ale nie powinny
+                PctMonoHist.Image.Save(saveBwHistDialog.FileName, System.Drawing.Imaging.ImageFormat.Png); //(todo) inne formaty tez dzialaja, ale nie powinny
             }
 
 
@@ -115,25 +130,32 @@ namespace APOproject
 
         private void btnStretchHistogram_Click(object sender, EventArgs e)
         {
-            //histogramCreator.stretchHistogram();
+            stretchHistogramCommand = new StretchHistogramCommand(LookUpTable, imageForm);
             stretchHistogramCommand.execute();
             if(rbBlackWhiteHist.Checked)
             {
-                showBlackWhiteHistogram();
+                showMonoHistogram();
             }
             else
             {
                 showRgbHistogram();
             }
-            //this.mainForm.MainPictureImage
             
             /// refresh image
         }
 
         private void btnEqHistogram_Click(object sender, EventArgs e)
         {
+            PctRedHist.Image = null;
+            PctBlueHist.Image = null;
+            PctGreenHist.Image = null;
+            Refresh();
+            flattenHistogramCommand = new FlattenHistogramCommand(imageForm, this);
             flattenHistogramCommand.execute();
-
         }
+
+       
+        
+
     }
 }

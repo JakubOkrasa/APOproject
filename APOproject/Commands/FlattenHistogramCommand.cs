@@ -9,7 +9,7 @@ namespace APOproject.Commands
 {
     class FlattenHistogramCommand : ICommand
     {
-        private LookUpTable lookUpTable;
+        private LookUpTablesSet lookUpTable;
         private ImageForm imageForm;
         private HistogramForm histogramForm;
 

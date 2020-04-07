@@ -16,7 +16,7 @@ namespace APOproject
     {
         ImageForm imageForm;
         public List<Histogram> Histograms { get; set; }
-        public LookUpTable LookUpTable { get; set; }
+        public LookUpTablesSet LookUpTable { get; set; }
         StretchHistogramCommand stretchHistogramCommand;
         FlattenHistogramCommand flattenHistogramCommand;
 
@@ -53,7 +53,7 @@ namespace APOproject
             InitializeComponent();
             this.imageForm = imageForm;
             //this.lookUpTable = lookUpTable;
-            this.LookUpTable = new LookUpTable(imageForm);
+            this.LookUpTable = new LookUpTablesSet(imageForm);
             Histograms = new List<Histogram>(4);
             PctMonoHist.Visible = true;
             PctRedHist.Visible = false;

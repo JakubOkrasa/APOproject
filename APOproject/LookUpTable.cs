@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace APOproject
 {
-    public class LookUpTable
+    public class LookUpTablesSet
     {
         private ImageForm imageForm;
 
@@ -46,7 +46,7 @@ namespace APOproject
         public int MaxOccurenceNumberGreen { get; set; }
         public int MaxOccurenceNumberBlue { get; set; }
 
-        public LookUpTable(ImageForm imageForm)
+        public LookUpTablesSet(ImageForm imageForm)
         {
             this.imageForm = imageForm;  
             this.bitmap = imageForm.PictureBox.Image as Bitmap;

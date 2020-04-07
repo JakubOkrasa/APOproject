@@ -12,10 +12,10 @@ namespace APOproject.Commands
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
         public Bitmap Bitmap { get; set; }
-        private LookUpTable lookUpTable;
+        private LookUpTablesSet lookUpTable;
         private ImageForm imageForm;
 
-        public StretchHistogramCommand(LookUpTable lookUpTable, ImageForm imageForm)
+        public StretchHistogramCommand(LookUpTablesSet lookUpTable, ImageForm imageForm)
         {
             this.lookUpTable = lookUpTable;
             this.imageForm = imageForm;

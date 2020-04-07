@@ -95,8 +95,9 @@ namespace APOproject
             Console.WriteLine("drawing data...");
             Console.WriteLine("distance: " + (frame.Bottom - frame.Top + GRAPH_INNER_TOP_MARGIN));
             float pixelsNumberMultiplier = (frame.Bottom - frame.Top + GRAPH_INNER_TOP_MARGIN) / (float)HistogramMaximum; //todo: integracja inner top margin z podzialka na wykresie
+            pixelsNumberMultiplier *= 0.77f; // odpowiednia poprawka na mnożnik tylko jeśli GRAPH_INNER_TOP_MARGIN = 10
 
-            graphics.DrawLine(testPen, new PointF(frame.Left - 10, frame.Bottom), new PointF(frame.Left-10, frame.Bottom-pixelsNumberMultiplier*HistogramMaximum));
+            //graphics.DrawLine(testPen, new PointF(frame.Left - 10, frame.Bottom), new PointF(frame.Left-10, frame.Bottom-pixelsNumberMultiplier*HistogramMaximum));
 
             PointF startPosition = new PointF(frame.Left + 1, frame.Bottom);
             PointF endPosition = new PointF(startPosition.X, startPosition.Y);

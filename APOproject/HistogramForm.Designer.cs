@@ -89,7 +89,6 @@
             this.gbHistogramTypes.Size = new System.Drawing.Size(200, 100);
             this.gbHistogramTypes.TabIndex = 4;
             this.gbHistogramTypes.TabStop = false;
-            this.gbHistogramTypes.Text = "gbHistogramTypes";
             // 
             // btnStretchHistogram
             // 

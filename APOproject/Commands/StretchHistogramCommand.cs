@@ -37,7 +37,6 @@ namespace APOproject.Commands
 
         private void modifyBitmapToStretchHistogram()
         {
-            LookUpTable lookUpTable = new LookUpTable(imageForm); //gets min and max values from 3 channels (RGB)
             int redNewValue;
             int greenNewValue;
             int blueNewValue;
@@ -49,9 +48,9 @@ namespace APOproject.Commands
                 {
                     oldColor = Bitmap.GetPixel(i, j);
 
-                    redNewValue = (oldColor.R - lookUpTable.MinR) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxR - lookUpTable.MinR));
-                    greenNewValue = (oldColor.G - lookUpTable.MinG) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxG - lookUpTable.MinG));
-                    blueNewValue = (oldColor.B - lookUpTable.MinB) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxB - lookUpTable.MinB));
+                    redNewValue = (oldColor.R - lookUpTable.MinLevelR) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelR - lookUpTable.MinLevelR));
+                    greenNewValue = (oldColor.G - lookUpTable.MinLevelG) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelG - lookUpTable.MinLevelG));
+                    blueNewValue = (oldColor.B - lookUpTable.MinLevelB) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelB - lookUpTable.MinLevelB));
 
                     Bitmap.SetPixel(i, j, Color.FromArgb(redNewValue, greenNewValue, blueNewValue));
                 }

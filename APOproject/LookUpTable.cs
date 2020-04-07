@@ -25,20 +25,26 @@ namespace APOproject
         int bitmapHeight;
         int bitmapWidth;
 
-        public int[,] RgbLUT { get; set; }
         public int[] MonoLUT { get; set; }
         public int[] RedLUT { get; set; }
         public int[] GreenLUT { get; set; }
         public int[] BlueLUT { get; set; }
 
-        public int MinMono { get; set; }
-        public int MaxMono { get; set; }
-        public int MinR { get; set; }
-        public int MaxR { get; set; }
-        public int MinG { get; set; }
-        public int MaxG { get; set; }
-        public int MinB { get; set; }
-        public int MaxB { get; set; }
+
+        // min and max existing brightness/color saturation in the image
+        public int MinLevelMono { get; set; }
+        public int MaxLevelMono { get; set; }
+        public int MinLevelR { get; set; }
+        public int MaxLevelR { get; set; }
+        public int MinLevelG { get; set; }
+        public int MaxLevelG { get; set; }
+        public int MinLevelB { get; set; }
+        public int MaxLevelB { get; set; }
+
+        public int MaxOccurenceNumberMono { get; set; }
+        public int MaxOccurenceNumberRed { get; set; }
+        public int MaxOccurenceNumberGreen { get; set; }
+        public int MaxOccurenceNumberBlue { get; set; }
 
         public LookUpTable(ImageForm imageForm)
         {
@@ -46,19 +52,20 @@ namespace APOproject
             this.bitmap = imageForm.PictureBox.Image as Bitmap;
 
             
-            MinR = bitmap.GetPixel(0, 0).R;
-            MaxR = bitmap.GetPixel(0, 0).R;
-            MinG = bitmap.GetPixel(0, 0).G;
-            MaxG = bitmap.GetPixel(0, 0).G;
-            MinB = bitmap.GetPixel(0, 0).B;
-            MaxB = bitmap.GetPixel(0, 0).B;
-            MinMono = (int)Math.Round(MinR * RED_MULTIPLIER + MinG * GREEN_MULTIPLIER + MinB * BLUE_MULTIPLIER, 0);
-            MaxMono = (int)Math.Round(MaxR * RED_MULTIPLIER + MaxG * GREEN_MULTIPLIER + MaxB * BLUE_MULTIPLIER, 0);
+            MinLevelR = bitmap.GetPixel(0, 0).R;
+            MaxLevelR = bitmap.GetPixel(0, 0).R;
+            MinLevelG = bitmap.GetPixel(0, 0).G;
+            MaxLevelG = bitmap.GetPixel(0, 0).G;
+            MinLevelB = bitmap.GetPixel(0, 0).B;
+            MaxLevelB = bitmap.GetPixel(0, 0).B;
+            MinLevelMono = (int)Math.Round(MinLevelR * RED_MULTIPLIER + MinLevelG * GREEN_MULTIPLIER + MinLevelB * BLUE_MULTIPLIER, 0);
+            MaxLevelMono = (int)Math.Round(MaxLevelR * RED_MULTIPLIER + MaxLevelG * GREEN_MULTIPLIER + MaxLevelB * BLUE_MULTIPLIER, 0);
 
             BitmapWidth = (int)bitmap.GetBounds(ref imageSizeUnit).Width;
             BitmapHeight = (int)bitmap.GetBounds(ref imageSizeUnit).Height;
 
             populateLUTs(bitmap);
+            setExtremums();
         }
 
 
@@ -75,23 +82,23 @@ namespace APOproject
                 {
                     //RED
                     redValue = bitmap.GetPixel(i, j).R;
-                    if (redValue < MinR) { MinR = redValue; } //find minimum
-                    if (redValue > MaxR) { MaxR = redValue; } //find maximum
+                    if (redValue < MinLevelR) { MinLevelR = redValue; } //find minimum
+                    if (redValue > MaxLevelR) { MaxLevelR = redValue; } //find maximum
 
                     //GREEN
                     greenValue = bitmap.GetPixel(i, j).G;
-                    if (greenValue < MinG) { MinG = greenValue; }
-                    if (greenValue > MaxG) { MaxG = greenValue; }
+                    if (greenValue < MinLevelG) { MinLevelG = greenValue; }
+                    if (greenValue > MaxLevelG) { MaxLevelG = greenValue; }
 
                     //BLUE
                     blueValue = bitmap.GetPixel(i, j).B;
-                    if (blueValue < MinB) { MinB = blueValue; }
-                    if (blueValue > MaxB) { MaxB = blueValue; }
+                    if (blueValue < MinLevelB) { MinLevelB = blueValue; }
+                    if (blueValue > MaxLevelB) { MaxLevelB = blueValue; }
 
                     //MONOCHROMATIC
                     monoValue = (int)Math.Round((redValue * RED_MULTIPLIER + greenValue * GREEN_MULTIPLIER + blueValue * BLUE_MULTIPLIER), 0);
-                    if (monoValue < MinMono) { MinMono = monoValue; }
-                    if (monoValue > MaxMono) { MaxMono = monoValue; }
+                    if (monoValue < MinLevelMono) { MinLevelMono = monoValue; }
+                    if (monoValue > MaxLevelMono) { MaxLevelMono = monoValue; }
 
                 }
 
@@ -108,8 +115,11 @@ namespace APOproject
             MonoLUT = new int[BRIGHTNESS_LEVELS_NUMBER];
             bitmapWidth = (int)bitmap.GetBounds(ref imageSizeUnit).Width;
             bitmapHeight = (int)bitmap.GetBounds(ref imageSizeUnit).Height;
+
+           
             for (int i = 0; i < bitmapWidth; i++)
             {
+                
                 for (int j = 0; j < bitmapHeight; j++)
                 {
                     Color pixel = bitmap.GetPixel(i, j);

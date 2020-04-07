@@ -37,7 +37,7 @@ namespace APOproject
             font = new Font("Arial", 10);
             solidBrush = new SolidBrush(Color.Black);
 
-            PrepareGraph();
+            DrawGraphFrame();
             dataPenWidth = ((float)(frame.Right-1) - frame.Left) / BRIGHTNESS_LEVELS_NUMBER;
             dataPen = new Pen(penColor, dataPenWidth);
 
@@ -49,12 +49,13 @@ namespace APOproject
             graphics.Clear(Color.Teal);
         }
 
-        private void PrepareGraph()
+        public void DrawGraphFrame()
         {
-            frame = DrawGraphFrame();
+            frame = getGraphFrame();
+            graphics.DrawRectangle(axisesPen, frame);
         }
 
-        private Rectangle DrawGraphFrame()
+        private Rectangle getGraphFrame()
         {
             //graph frame
             frame = new Rectangle(
@@ -63,7 +64,7 @@ namespace APOproject
                 pictureBox.Width - GRAPH_OUTER_MARGIN,
                 pictureBox.Height - GRAPH_OUTER_MARGIN
                 );
-            graphics.DrawRectangle(axisesPen, frame);
+            
             return frame;
 
 

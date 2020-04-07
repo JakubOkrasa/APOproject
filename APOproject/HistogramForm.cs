@@ -44,6 +44,12 @@ namespace APOproject
             set { pctBlueHist = value; }
         }
 
+        public Histogram MonoHistogram { get; set; }
+        public Histogram RedHistogram { get; set; }
+        public Histogram GreenHistogram { get; set; }
+        public Histogram BlueHistogram { get; set; }
+
+
 
 
 
@@ -60,6 +66,14 @@ namespace APOproject
             PctGreenHist.Visible = false;
             PctBlueHist.Visible = false;
             Shown += HistogramForm_Shown;
+            MonoHistogram = new Histogram(PctMonoHist, Color.DarkGray);
+            RedHistogram = new Histogram(PctRedHist, Color.Crimson);
+            GreenHistogram = new Histogram(PctGreenHist, Color.ForestGreen);
+            BlueHistogram = new Histogram(PctBlueHist, Color.RoyalBlue);
+            Histograms.Add(MonoHistogram);
+            Histograms.Add(RedHistogram);
+            Histograms.Add(GreenHistogram);
+            Histograms.Add(BlueHistogram);
         }
 
         private void HistogramForm_Shown(object sender, EventArgs e)
@@ -71,24 +85,19 @@ namespace APOproject
         private void showMonoHistogram()
         {
             Refresh();
-            Histogram monoHistogram = new Histogram(PctMonoHist, Color.DarkGray);
-            monoHistogram.DrawHistogramData(LookUpTable.MonoLUT);
-            Histograms.Add(monoHistogram);
+            MonoHistogram.DrawGraphFrame();
+            MonoHistogram.DrawHistogramData(LookUpTable.MonoLUT);
         }
 
         private void showRgbHistogram()
         {
             Refresh();
-            Histogram redHistogram = new Histogram(PctRedHist, Color.Crimson);
-            Histogram greenHistogram = new Histogram(PctGreenHist, Color.ForestGreen);
-            Histogram blueHistogram = new Histogram(PctBlueHist, Color.RoyalBlue);
-            redHistogram.DrawHistogramData(LookUpTable.RedLUT);
-            greenHistogram.DrawHistogramData(LookUpTable.GreenLUT);
-            blueHistogram.DrawHistogramData(LookUpTable.BlueLUT);
-
-            Histograms.Add(redHistogram);
-            Histograms.Add(greenHistogram);
-            Histograms.Add(blueHistogram);
+            RedHistogram.DrawGraphFrame();
+            GreenHistogram.DrawGraphFrame();
+            BlueHistogram.DrawGraphFrame();
+            RedHistogram.DrawHistogramData(LookUpTable.RedLUT);
+            GreenHistogram.DrawHistogramData(LookUpTable.GreenLUT);
+            BlueHistogram.DrawHistogramData(LookUpTable.BlueLUT);            
         }
         
 
@@ -140,8 +149,6 @@ namespace APOproject
             {
                 showRgbHistogram();
             }
-            
-            /// refresh image
         }
 
         private void btnEqHistogram_Click(object sender, EventArgs e)
@@ -152,9 +159,7 @@ namespace APOproject
             Refresh();
             flattenHistogramCommand = new FlattenHistogramCommand(imageForm, this);
             flattenHistogramCommand.execute();
-        }
-
-       
+        }    
         
 
     }

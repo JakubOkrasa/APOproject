@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LookUpTable.cs" />
+    <Compile Include="LookUpTablesSet.cs" />
     <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />

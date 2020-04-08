@@ -51,7 +51,7 @@
     <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />
-    <Compile Include="Histogram.cs" />
+    <Compile Include="Histogram\Histogram.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,10 +70,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="HistogramForm.cs">
+    <Compile Include="Histogram\HistogramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HistogramForm.Designer.cs">
+    <Compile Include="Histogram\HistogramForm.Designer.cs">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -87,7 +87,7 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HistogramForm.resx">
+    <EmbeddedResource Include="Histogram\HistogramForm.resx">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

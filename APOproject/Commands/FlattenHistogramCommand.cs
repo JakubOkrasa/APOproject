@@ -19,7 +19,7 @@ namespace APOproject.Commands
 
         public FlattenHistogramCommand(ImageForm imageForm, HistogramForm histogramForm)
         {
-            lookUpTable = histogramForm.LookUpTable;
+            lookUpTable = histogramForm.LookUpTablesSet;
             this.histogramForm = histogramForm;
             this.imageForm = imageForm;
            // this.histogramForm = histogramForm;

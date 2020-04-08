@@ -16,7 +16,7 @@ namespace APOproject
     {
         ImageForm imageForm;
         public List<Histogram> Histograms { get; set; }
-        public LookUpTablesSet LookUpTable { get; set; }
+        public LookUpTablesSet LookUpTablesSet { get; set; }
         StretchHistogramCommand stretchHistogramCommand;
         FlattenHistogramCommand flattenHistogramCommand;
 
@@ -59,7 +59,7 @@ namespace APOproject
             InitializeComponent();
             this.imageForm = imageForm;
             //this.lookUpTable = lookUpTable;
-            this.LookUpTable = new LookUpTablesSet(imageForm);
+            this.LookUpTablesSet = new LookUpTablesSet(imageForm);
             Histograms = new List<Histogram>(4);
             PctMonoHist.Visible = true;
             PctRedHist.Visible = false;
@@ -86,7 +86,7 @@ namespace APOproject
         {
             Refresh();
             MonoHistogram.DrawGraphFrame();
-            MonoHistogram.DrawHistogramData(LookUpTable.MonoLUT);
+            MonoHistogram.DrawHistogramData(LookUpTablesSet.MonoLUT);
         }
 
         private void showRgbHistogram()
@@ -95,9 +95,9 @@ namespace APOproject
             RedHistogram.DrawGraphFrame();
             GreenHistogram.DrawGraphFrame();
             BlueHistogram.DrawGraphFrame();
-            RedHistogram.DrawHistogramData(LookUpTable.RedLUT);
-            GreenHistogram.DrawHistogramData(LookUpTable.GreenLUT);
-            BlueHistogram.DrawHistogramData(LookUpTable.BlueLUT);            
+            RedHistogram.DrawHistogramData(LookUpTablesSet.RedLUT);
+            GreenHistogram.DrawHistogramData(LookUpTablesSet.GreenLUT);
+            BlueHistogram.DrawHistogramData(LookUpTablesSet.BlueLUT);            
         }
         
 
@@ -139,7 +139,7 @@ namespace APOproject
 
         private void btnStretchHistogram_Click(object sender, EventArgs e)
         {
-            stretchHistogramCommand = new StretchHistogramCommand(LookUpTable, imageForm);
+            stretchHistogramCommand = new StretchHistogramCommand(LookUpTablesSet, imageForm);
             stretchHistogramCommand.execute();
             if(rbBlackWhiteHist.Checked)
             {

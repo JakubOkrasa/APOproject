@@ -35,23 +35,25 @@ namespace APOproject.Commands
         }
 
 
-        private void modifyBitmapToStretchHistogram()
+        private void modifyBitmapToStretchHistogram(int brightnessLevelsNumber=BRIGHTNESS_LEVELS_NUMBER)
         {
             int redNewValue;
             int greenNewValue;
             int blueNewValue;
             Color oldColor;
+            float redStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelR - lookUpTable.MinLevelR);
+            float greenStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelG - lookUpTable.MinLevelG);
+            float blueStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelB - lookUpTable.MinLevelB);
+            
 
             for (int i = 0; i < lookUpTable.BitmapWidth; i++)
             {
                 for (int j = 0; j < lookUpTable.BitmapHeight; j++)
                 {
                     oldColor = Bitmap.GetPixel(i, j);
-
-                    redNewValue = (oldColor.R - lookUpTable.MinLevelR) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelR - lookUpTable.MinLevelR));
-                    greenNewValue = (oldColor.G - lookUpTable.MinLevelG) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelG - lookUpTable.MinLevelG));
-                    blueNewValue = (oldColor.B - lookUpTable.MinLevelB) * (BRIGHTNESS_LEVELS_NUMBER / (lookUpTable.MaxLevelB - lookUpTable.MinLevelB));
-
+                    redNewValue = (int)Math.Round((oldColor.R - lookUpTable.MinLevelR) * redStretchMultiplier, 0);
+                    greenNewValue = (int)Math.Round((oldColor.G - lookUpTable.MinLevelG) * greenStretchMultiplier, 0);
+                    blueNewValue = (int)Math.Round((oldColor.B - lookUpTable.MinLevelB) * blueStretchMultiplier, 0);                    
                     Bitmap.SetPixel(i, j, Color.FromArgb(redNewValue, greenNewValue, blueNewValue));
                 }
             }

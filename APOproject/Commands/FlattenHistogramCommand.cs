@@ -44,10 +44,10 @@ namespace APOproject.Commands
             lookUpTable.BlueLUT = getEqualizedLUT(lookUpTable.BlueLUT);
             lookUpTable.MonoLUT = getEqualizedLUT(lookUpTable.MonoLUT);
 
-            Histogram monoHistogram = new Histogram(histogramForm.PctMonoHist, Color.DarkGray);
-            Histogram redHistogram = new Histogram(histogramForm.PctRedHist, Color.Crimson);
-            Histogram greenHistogram = new Histogram(histogramForm.PctGreenHist, Color.ForestGreen);
-            Histogram blueHistogram = new Histogram(histogramForm.PctBlueHist, Color.RoyalBlue);
+            HistogramDrafter monoHistogram = new HistogramDrafter(histogramForm.PctMonoHist, Color.DarkGray);
+            HistogramDrafter redHistogram = new HistogramDrafter(histogramForm.PctRedHist, Color.Crimson);
+            HistogramDrafter greenHistogram = new HistogramDrafter(histogramForm.PctGreenHist, Color.ForestGreen);
+            HistogramDrafter blueHistogram = new HistogramDrafter(histogramForm.PctBlueHist, Color.RoyalBlue);
 
             monoHistogram.DrawHistogramData(lookUpTable.RedLUT);
             redHistogram.DrawHistogramData(lookUpTable.RedLUT);

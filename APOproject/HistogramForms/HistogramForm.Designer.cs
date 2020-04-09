@@ -39,11 +39,17 @@
             this.pctGreenHist = new System.Windows.Forms.PictureBox();
             this.pctBlueHist = new System.Windows.Forms.PictureBox();
             this.pctRedHist = new System.Windows.Forms.PictureBox();
+            this.gBstretch = new System.Windows.Forms.GroupBox();
+            this.tbStretch = new System.Windows.Forms.TrackBar();
+            this.upDownStretch = new System.Windows.Forms.NumericUpDown();
             this.gbHistogramTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctMonoHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctGreenHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBlueHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).BeginInit();
+            this.gBstretch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownStretch)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSaveHistogram
@@ -92,7 +98,7 @@
             // 
             // btnStretchHistogram
             // 
-            this.btnStretchHistogram.Location = new System.Drawing.Point(607, 209);
+            this.btnStretchHistogram.Location = new System.Drawing.Point(25, 19);
             this.btnStretchHistogram.Name = "btnStretchHistogram";
             this.btnStretchHistogram.Size = new System.Drawing.Size(141, 23);
             this.btnStretchHistogram.TabIndex = 8;
@@ -102,7 +108,7 @@
             // 
             // btnEqHistogram
             // 
-            this.btnEqHistogram.Location = new System.Drawing.Point(607, 260);
+            this.btnEqHistogram.Location = new System.Drawing.Point(607, 325);
             this.btnEqHistogram.Name = "btnEqHistogram";
             this.btnEqHistogram.Size = new System.Drawing.Size(141, 23);
             this.btnEqHistogram.TabIndex = 9;
@@ -142,17 +148,45 @@
             this.pctRedHist.TabIndex = 13;
             this.pctRedHist.TabStop = false;
             // 
+            // gBstretch
+            // 
+            this.gBstretch.Controls.Add(this.upDownStretch);
+            this.gBstretch.Controls.Add(this.tbStretch);
+            this.gBstretch.Controls.Add(this.btnStretchHistogram);
+            this.gBstretch.Location = new System.Drawing.Point(582, 179);
+            this.gBstretch.Name = "gBstretch";
+            this.gBstretch.Size = new System.Drawing.Size(192, 100);
+            this.gBstretch.TabIndex = 14;
+            this.gBstretch.TabStop = false;
+            this.gBstretch.Text = "Histogram stretching";
+            // 
+            // tbStretch
+            // 
+            this.tbStretch.Location = new System.Drawing.Point(25, 55);
+            this.tbStretch.Maximum = 255;
+            this.tbStretch.Name = "tbStretch";
+            this.tbStretch.Size = new System.Drawing.Size(111, 45);
+            this.tbStretch.TabIndex = 9;
+            this.tbStretch.Value = 255;
+            // 
+            // upDownStretch
+            // 
+            this.upDownStretch.Location = new System.Drawing.Point(149, 55);
+            this.upDownStretch.Name = "upDownStretch";
+            this.upDownStretch.Size = new System.Drawing.Size(43, 20);
+            this.upDownStretch.TabIndex = 10;
+            // 
             // HistogramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 607);
+            this.Controls.Add(this.gBstretch);
             this.Controls.Add(this.pctRedHist);
             this.Controls.Add(this.pctBlueHist);
             this.Controls.Add(this.pctGreenHist);
             this.Controls.Add(this.pctMonoHist);
             this.Controls.Add(this.btnEqHistogram);
-            this.Controls.Add(this.btnStretchHistogram);
             this.Controls.Add(this.gbHistogramTypes);
             this.Controls.Add(this.btnSaveHistogram);
             this.Name = "HistogramForm";
@@ -164,6 +198,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctGreenHist)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBlueHist)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).EndInit();
+            this.gBstretch.ResumeLayout(false);
+            this.gBstretch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownStretch)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,5 +218,8 @@
         private System.Windows.Forms.PictureBox pctGreenHist;
         private System.Windows.Forms.PictureBox pctBlueHist;
         private System.Windows.Forms.PictureBox pctRedHist;
+        private System.Windows.Forms.GroupBox gBstretch;
+        private System.Windows.Forms.NumericUpDown upDownStretch;
+        private System.Windows.Forms.TrackBar tbStretch;
     }
 }

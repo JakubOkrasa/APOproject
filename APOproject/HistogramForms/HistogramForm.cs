@@ -15,7 +15,7 @@ namespace APOproject
     public partial class HistogramForm : Form
     {
         ImageForm imageForm;
-        public List<Histogram> Histograms { get; set; }
+        public List<HistogramDrafter> Histograms { get; set; }
         public LookUpTablesSet LookUpTablesSet { get; set; }
         StretchHistogramCommand stretchHistogramCommand;
         FlattenHistogramCommand flattenHistogramCommand;
@@ -44,10 +44,10 @@ namespace APOproject
             set { pctBlueHist = value; }
         }
 
-        public Histogram MonoHistogram { get; set; }
-        public Histogram RedHistogram { get; set; }
-        public Histogram GreenHistogram { get; set; }
-        public Histogram BlueHistogram { get; set; }
+        public HistogramDrafter MonoHistogram { get; set; }
+        public HistogramDrafter RedHistogram { get; set; }
+        public HistogramDrafter GreenHistogram { get; set; }
+        public HistogramDrafter BlueHistogram { get; set; }
 
 
 
@@ -60,16 +60,16 @@ namespace APOproject
             this.imageForm = imageForm;
             //this.lookUpTable = lookUpTable;
             this.LookUpTablesSet = new LookUpTablesSet(imageForm);
-            Histograms = new List<Histogram>(4);
+            Histograms = new List<HistogramDrafter>(4);
             PctMonoHist.Visible = true;
             PctRedHist.Visible = false;
             PctGreenHist.Visible = false;
             PctBlueHist.Visible = false;
             Shown += HistogramForm_Shown;
-            MonoHistogram = new Histogram(PctMonoHist, Color.DarkGray);
-            RedHistogram = new Histogram(PctRedHist, Color.Crimson);
-            GreenHistogram = new Histogram(PctGreenHist, Color.ForestGreen);
-            BlueHistogram = new Histogram(PctBlueHist, Color.RoyalBlue);
+            MonoHistogram = new HistogramDrafter(PctMonoHist, Color.DarkGray);
+            RedHistogram = new HistogramDrafter(PctRedHist, Color.Crimson);
+            GreenHistogram = new HistogramDrafter(PctGreenHist, Color.ForestGreen);
+            BlueHistogram = new HistogramDrafter(PctBlueHist, Color.RoyalBlue);
             Histograms.Add(MonoHistogram);
             Histograms.Add(RedHistogram);
             Histograms.Add(GreenHistogram);

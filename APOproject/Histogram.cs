@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace APOproject
 {
-    public class Histogram
+    public class HistogramDrafter
     {
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
         const int GRAPH_OUTER_MARGIN = 50;
@@ -29,7 +29,7 @@ namespace APOproject
         
         private Pen testPen;
         
-        public Histogram(PictureBox pictureBox, Color penColor)
+        public HistogramDrafter(PictureBox pictureBox, Color penColor)
         {
             this.pictureBox = pictureBox;
             graphics = pictureBox.CreateGraphics();

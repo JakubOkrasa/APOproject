@@ -47,11 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HistogramForms\StretchHistogramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistogramForms\StretchHistogramForm.Designer.cs">
+      <DependentUpon>StretchHistogramForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LookUpTablesSet.cs" />
     <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />
-    <Compile Include="Histogram\Histogram.cs" />
+    <Compile Include="Histogram.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,14 +76,17 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Histogram\HistogramForm.cs">
+    <Compile Include="HistogramForms\HistogramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Histogram\HistogramForm.Designer.cs">
+    <Compile Include="HistogramForms\HistogramForm.Designer.cs">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HistogramForms\StretchHistogramForm.resx">
+      <DependentUpon>StretchHistogramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageForm.resx">
       <DependentUpon>ImageForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,7 +96,7 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Histogram\HistogramForm.resx">
+    <EmbeddedResource Include="HistogramForms\HistogramForm.resx">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

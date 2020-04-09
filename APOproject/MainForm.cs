@@ -42,8 +42,16 @@ namespace APOproject
 
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HistogramForm hf = new HistogramForm(ActiveMdiChild as ImageForm);
-            hf.ShowDialog();
+            if(ActiveMdiChild!=null)
+            {
+                HistogramForm hf = new HistogramForm(ActiveMdiChild as ImageForm);
+                hf.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No image is opened.");
+            }
+            
         }
 
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)

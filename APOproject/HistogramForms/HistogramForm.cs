@@ -19,6 +19,7 @@ namespace APOproject
         public LookUpTablesSet LookUpTablesSet { get; set; }
         StretchHistogramCommand stretchHistogramCommand;
         FlattenHistogramCommand flattenHistogramCommand;
+        const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
         public PictureBox PctMonoHist
         {
@@ -139,9 +140,16 @@ namespace APOproject
 
         private void btnStretchHistogram_Click(object sender, EventArgs e)
         {
+            stretchHistogram();
+            tbStretch.Enabled = true;
+            upDownStretch.Enabled = true;
+        }
+
+        private void stretchHistogram(int brightnessLevelsNumber=BRIGHTNESS_LEVELS_NUMBER)
+        {
             stretchHistogramCommand = new StretchHistogramCommand(LookUpTablesSet, imageForm);
-            stretchHistogramCommand.execute();
-            if(rbBlackWhiteHist.Checked)
+            stretchHistogramCommand.execute(brightnessLevelsNumber);
+            if (rbBlackWhiteHist.Checked)
             {
                 showMonoHistogram();
             }
@@ -159,8 +167,18 @@ namespace APOproject
             Refresh();
             flattenHistogramCommand = new FlattenHistogramCommand(imageForm, this);
             flattenHistogramCommand.execute();
-        }    
-        
+        }
 
+        private void upDownStretch_ValueChanged(object sender, EventArgs e)
+        {
+            tbStretch.Value = Convert.ToInt32(upDownStretch.Value);
+            stretchHistogram(tbStretch.Value);
+        }
+
+        private void tbStretch_Scroll(object sender, EventArgs e)
+        {
+            upDownStretch.Value = tbStretch.Value;
+            stretchHistogram(tbStretch.Value);
+        }
     }
 }

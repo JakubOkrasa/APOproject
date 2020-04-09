@@ -40,16 +40,16 @@
             this.pctBlueHist = new System.Windows.Forms.PictureBox();
             this.pctRedHist = new System.Windows.Forms.PictureBox();
             this.gBstretch = new System.Windows.Forms.GroupBox();
-            this.tbStretch = new System.Windows.Forms.TrackBar();
             this.upDownStretch = new System.Windows.Forms.NumericUpDown();
+            this.tbStretch = new System.Windows.Forms.TrackBar();
             this.gbHistogramTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctMonoHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctGreenHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBlueHist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).BeginInit();
             this.gBstretch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upDownStretch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSaveHistogram
@@ -160,21 +160,35 @@
             this.gBstretch.TabStop = false;
             this.gBstretch.Text = "Histogram stretching";
             // 
+            // upDownStretch
+            // 
+            this.upDownStretch.Enabled = false;
+            this.upDownStretch.Location = new System.Drawing.Point(149, 55);
+            this.upDownStretch.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.upDownStretch.Name = "upDownStretch";
+            this.upDownStretch.Size = new System.Drawing.Size(43, 20);
+            this.upDownStretch.TabIndex = 10;
+            this.upDownStretch.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.upDownStretch.ValueChanged += new System.EventHandler(this.upDownStretch_ValueChanged);
+            // 
             // tbStretch
             // 
+            this.tbStretch.Enabled = false;
             this.tbStretch.Location = new System.Drawing.Point(25, 55);
             this.tbStretch.Maximum = 255;
             this.tbStretch.Name = "tbStretch";
             this.tbStretch.Size = new System.Drawing.Size(111, 45);
             this.tbStretch.TabIndex = 9;
             this.tbStretch.Value = 255;
-            // 
-            // upDownStretch
-            // 
-            this.upDownStretch.Location = new System.Drawing.Point(149, 55);
-            this.upDownStretch.Name = "upDownStretch";
-            this.upDownStretch.Size = new System.Drawing.Size(43, 20);
-            this.upDownStretch.TabIndex = 10;
+            this.tbStretch.Scroll += new System.EventHandler(this.tbStretch_Scroll);
             // 
             // HistogramForm
             // 
@@ -200,8 +214,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctRedHist)).EndInit();
             this.gBstretch.ResumeLayout(false);
             this.gBstretch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upDownStretch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbStretch)).EndInit();
             this.ResumeLayout(false);
 
         }

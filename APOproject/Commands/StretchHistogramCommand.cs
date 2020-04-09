@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace APOproject.Commands
 {
-    public class StretchHistogramCommand : ICommand
+    public class StretchHistogramCommand
     {
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
@@ -22,9 +22,9 @@ namespace APOproject.Commands
             Bitmap = imageForm.PictureBox.Image as Bitmap;            
         }
 
-        public void execute()
+        public void execute(int brightnessLevelsNumber=BRIGHTNESS_LEVELS_NUMBER)
         {
-            modifyBitmapToStretchHistogram();
+            modifyBitmapToStretchHistogram(brightnessLevelsNumber);
             lookUpTable.populateLUTs(Bitmap);
             imageForm.PictureBox.Image = Bitmap;
         }

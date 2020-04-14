@@ -43,11 +43,14 @@ namespace APOproject.Commands
             int greenNewValue;
             int blueNewValue;
             Color originalColor;
+
+            //calculate SM from this formula: SM=255/(maxBrightness-minBrightness)
+            //SM - stretch multiplier
             float redStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelR - lookUpTable.MinLevelR);
             float greenStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelG - lookUpTable.MinLevelG);
             float blueStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelB - lookUpTable.MinLevelB);
-            
 
+            //calculate new pixels brightness levels putting calculated SM to the formula: pixel(x, y)=(oryginalPixel(x,y)-minBrightness)*SM
             for (int i = 0; i < lookUpTable.BitmapWidth; i++)
             {
                 for (int j = 0; j < lookUpTable.BitmapHeight; j++)

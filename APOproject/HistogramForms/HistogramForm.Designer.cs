@@ -162,7 +162,6 @@
             // 
             // upDownStretch
             // 
-            this.upDownStretch.Enabled = false;
             this.upDownStretch.Location = new System.Drawing.Point(149, 55);
             this.upDownStretch.Maximum = new decimal(new int[] {
             255,
@@ -181,7 +180,6 @@
             // 
             // tbStretch
             // 
-            this.tbStretch.Enabled = false;
             this.tbStretch.Location = new System.Drawing.Point(25, 55);
             this.tbStretch.Maximum = 255;
             this.tbStretch.Name = "tbStretch";

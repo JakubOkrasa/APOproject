@@ -57,7 +57,7 @@
     <Compile Include="Commands\FlattenHistogramCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\StretchHistogramCommand.cs" />
-    <Compile Include="Histogram.cs" />
+    <Compile Include="HistogramDrafter.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>

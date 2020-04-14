@@ -12,6 +12,7 @@ namespace APOproject.Commands
         const int BRIGHTNESS_LEVELS_NUMBER = 256;
 
         public Bitmap Bitmap { get; set; }
+        public Bitmap OriginalBitmap { get; set; }
         private LookUpTablesSet lookUpTable;
         private ImageForm imageForm;
 
@@ -19,7 +20,8 @@ namespace APOproject.Commands
         {
             this.lookUpTable = lookUpTable;
             this.imageForm = imageForm;
-            Bitmap = imageForm.PictureBox.Image as Bitmap;            
+            Bitmap = imageForm.PictureBox.Image as Bitmap;
+            OriginalBitmap = Bitmap;
         }
 
         public void execute(int brightnessLevelsNumber=BRIGHTNESS_LEVELS_NUMBER)
@@ -40,7 +42,7 @@ namespace APOproject.Commands
             int redNewValue;
             int greenNewValue;
             int blueNewValue;
-            Color oldColor;
+            Color originalColor;
             float redStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelR - lookUpTable.MinLevelR);
             float greenStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelG - lookUpTable.MinLevelG);
             float blueStretchMultiplier = (float)(brightnessLevelsNumber-1) / (lookUpTable.MaxLevelB - lookUpTable.MinLevelB);
@@ -50,10 +52,10 @@ namespace APOproject.Commands
             {
                 for (int j = 0; j < lookUpTable.BitmapHeight; j++)
                 {
-                    oldColor = Bitmap.GetPixel(i, j);
-                    redNewValue = (int)Math.Round((oldColor.R - lookUpTable.MinLevelR) * redStretchMultiplier, 0);
-                    greenNewValue = (int)Math.Round((oldColor.G - lookUpTable.MinLevelG) * greenStretchMultiplier, 0);
-                    blueNewValue = (int)Math.Round((oldColor.B - lookUpTable.MinLevelB) * blueStretchMultiplier, 0);                    
+                    originalColor = OriginalBitmap.GetPixel(i, j);
+                    redNewValue = (int)Math.Round((originalColor.R - lookUpTable.MinLevelR) * redStretchMultiplier, 0);
+                    greenNewValue = (int)Math.Round((originalColor.G - lookUpTable.MinLevelG) * greenStretchMultiplier, 0);
+                    blueNewValue = (int)Math.Round((originalColor.B - lookUpTable.MinLevelB) * blueStretchMultiplier, 0);                    
                     Bitmap.SetPixel(i, j, Color.FromArgb(redNewValue, greenNewValue, blueNewValue));
                 }
             }

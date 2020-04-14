@@ -75,6 +75,8 @@ namespace APOproject
             Histograms.Add(RedHistogram);
             Histograms.Add(GreenHistogram);
             Histograms.Add(BlueHistogram);
+            stretchHistogramCommand = new StretchHistogramCommand(LookUpTablesSet, imageForm);
+
         }
 
         private void HistogramForm_Shown(object sender, EventArgs e)
@@ -147,7 +149,6 @@ namespace APOproject
 
         private void stretchHistogram(int brightnessLevelsNumber=BRIGHTNESS_LEVELS_NUMBER)
         {
-            stretchHistogramCommand = new StretchHistogramCommand(LookUpTablesSet, imageForm);
             stretchHistogramCommand.execute(brightnessLevelsNumber);
             if (rbBlackWhiteHist.Checked)
             {

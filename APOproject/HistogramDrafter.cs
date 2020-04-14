@@ -59,10 +59,10 @@ namespace APOproject
         {
             //graph frame
             frame = new Rectangle(
-                (int)Math.Round((float)GRAPH_OUTER_MARGIN / 2) + GRAPH_OUTER_LEFT_EXTRA_MARGIN,
-                (int)Math.Round((float)GRAPH_OUTER_MARGIN / 2),
-                pictureBox.Width - GRAPH_OUTER_MARGIN,
-                pictureBox.Height - GRAPH_OUTER_MARGIN
+                (int)Math.Round((float)GRAPH_OUTER_MARGIN / 2) + GRAPH_OUTER_LEFT_EXTRA_MARGIN, //X coordinate of histogram left top corner 
+                (int)Math.Round((float)GRAPH_OUTER_MARGIN / 2), //Y coordinate of histogram left top corner 
+                pictureBox.Width - GRAPH_OUTER_MARGIN-10, //histogram width, minus 10 to make "255" near X axis visible
+                pictureBox.Height - GRAPH_OUTER_MARGIN //histogram height
                 );
             
             return frame;
